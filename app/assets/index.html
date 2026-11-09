@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>1955年开国将帅录</title>
+<style>
+:root{
+  --red:#a4161a; --red-d:#7a1013; --gold:#d4a24e; --gold-l:#f3e3c3;
+  --bg:#f7f3ec; --card:#fffdf8; --ink:#2b2b2b; --gray:#8a8378;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding-bottom:70px}
+header{background:linear-gradient(135deg,var(--red-d),var(--red));color:#fff;padding:26px 16px 18px;text-align:center;position:relative;overflow:hidden}
+header::after{content:"★";position:absolute;font-size:120px;opacity:.08;right:-20px;top:-30px}
+header h1{font-size:22px;letter-spacing:2px;font-weight:700}
+header .sub{font-size:12px;opacity:.85;margin-top:6px;letter-spacing:1px}
+.stats{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:14px}
+.stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:6px 10px;min-width:64px}
+.stat b{display:block;font-size:18px;color:var(--gold-l)}
+.stat span{font-size:11px;opacity:.9}
+nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:2px solid var(--red);display:flex;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+nav button{flex:1;border:none;background:none;padding:12px 2px;font-size:14px;font-weight:600;color:var(--gray);border-bottom:3px solid transparent;cursor:pointer}
+nav button.on{color:var(--red);border-bottom-color:var(--red);background:linear-gradient(180deg,#fff, #fdf2f2)}
+.searchbar{display:flex;gap:8px;padding:12px 14px;position:sticky;top:45px;background:var(--bg);z-index:49;flex-wrap:wrap}
+.searchbar input{flex:1;min-width:150px;border:1.5px solid #d8cfbf;border-radius:22px;padding:10px 16px;font-size:14px;background:#fff;outline:none}
+.searchbar input:focus{border-color:var(--red)}
+.searchbar select{border:1.5px solid #d8cfbf;border-radius:16px;padding:8px 8px;font-size:13px;background:#fff;color:var(--ink);outline:none;max-width:47%}
+.list{padding:4px 12px}
+.card{background:var(--card);border-radius:12px;margin:8px 0;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid var(--gold);cursor:pointer;transition:transform .1s}
+.card:active{transform:scale(.985)}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-d));color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0}
+.info{flex:1;min-width:0}
+.info .nm{font-size:16px;font-weight:700}
+.info .meta{font-size:12px;color:var(--gray);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:11px;padding:3px 9px;border-radius:10px;background:var(--gold-l);color:var(--red-d);font-weight:700;flex-shrink:0}
+.empty{text-align:center;color:var(--gray);padding:50px 0;font-size:14px}
+/* 详情弹层 */
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none}
+.modal{position:fixed;left:0;right:0;bottom:0;max-height:82%;overflow-y:auto;background:var(--card);border-radius:18px 18px 0 0;z-index:101;display:none;padding:0 0 24px}
+.modal.show,.mask.show{display:block}
+.mhead{background:linear-gradient(135deg,var(--red-d),var(--red));color:#fff;padding:18px 18px 14px;border-radius:18px 18px 0 0;position:sticky;top:0}
+.mhead .row{display:flex;align-items:center;justify-content:space-between}
+.mhead h2{font-size:22px;letter-spacing:1px}
+.mhead .close{background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer}
+.tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);padding:2px 8px;border-radius:8px}
+.mbody{padding:14px 18px}
+.sec{margin-bottom:16px}
+.sec h3{font-size:14px;color:var(--red);border-left:4px solid var(--gold);padding-left:8px;margin-bottom:6px}
+.sec p{font-size:14px;line-height:1.8;text-align:justify;white-space:pre-wrap}
+.page{display:none}
+.page.show{display:block}
+.about{padding:16px}
+.about h2{font-size:18px;color:var(--red);margin:12px 0 8px}
+.about p{font-size:14px;line-height:1.9;text-align:justify;margin-bottom:10px}
+.about .note{background:#fdf6e3;border:1px solid var(--gold);border-radius:10px;padding:12px;font-size:13px;line-height:1.8}
+.tui{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid #e5ddcd;display:flex;z-index:60}.tui button{flex:1;border:none;background:none;padding:10px 0 12px;font-size:11px;color:var(--gray)}
+.tui button.on{color:var(--red);font-weight:700}
+.tui .ic{font-size:19px;display:block;margin-bottom:2px}
+.foot{text-align:center;color:#a39a8c;font-size:11px;letter-spacing:.5px;padding:18px 0 10px;border-top:1px solid #efe7d7;margin:14px 12px 0}
+.yearmark{margin:14px 4px 2px;font-size:12px;color:var(--red-d);font-weight:700;background:var(--gold-l);display:inline-block;padding:2px 10px;border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>1955 开国将帅录</h1>
+  <div class="sub">中国人民解放军首次实行军衔制 · 将帅查询</div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<nav id="tabs"></nav>
+<div class="searchbar">
+  <input id="q" placeholder="搜索姓名、籍贯、关键词…">
+  <select id="fProv"><option value="">按省份（全部）</option></select>
+  <select id="fRegion"><option value="">按革命老区（全部）</option></select>
+</div>
+<div id="listPage">
+  <div class="list" id="list"></div>
+</div>
+<div class="page" id="aboutPage"><div class="about" id="aboutContent"></div></div>
+
+<footer class="foot">小虫工作室@2026</footer>
+
+<div class="tui">
+  <button class="on" id="tuiList"><span class="ic">🂠</span>将帅名录</button>
+  <button id="tuiAbout"><span class="ic">📖</span>授衔档案</button>
+</div>
+
+<div class="mask" id="mask"></div>
+<div class="modal" id="modal"></div>
+
+<script src="data.js"></script>
+<script>
+let curRank='元帅', kw='', curProv='', curReg='';
+const RANKS=['元帅','大将','上将','中将','少将','校官'];
+const RANK_COLORS={'元帅':'#c9a227','大将':'#a4161a','上将':'#b23a48','中将':'#8d5a97','少将':'#2f6690','校官':'#5c7350'};
+
+function init(){
+  const s=document.getElementById('stats');
+  s.innerHTML=RANKS.map(r=>{
+    const g=DATA.find(x=>x.rank===r);
+    return `<div class="stat"><b>${g?g.list.length:'—'}</b><span>${r}</span></div>`;
+  }).join('');
+  const t=document.getElementById('tabs');
+  t.innerHTML=RANKS.map(r=>`<button data-r="${r}" class="${r===curRank?'on':''}">${r}</button>`).join('');
+  t.addEventListener('click',e=>{
+    if(e.target.dataset.r){curRank=e.target.dataset.r;
+      t.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.r===curRank));
+      render();}
+  });
+  document.getElementById('q').addEventListener('input',e=>{kw=e.target.value.trim();render();});
+  document.getElementById('fProv').addEventListener('change',e=>{curProv=e.target.value;render();});
+  document.getElementById('fRegion').addEventListener('change',e=>{curReg=e.target.value;render();});
+  document.getElementById('mask').addEventListener('click',closeModal);
+  document.getElementById('tuiList').onclick=()=>switchTab('list');
+  document.getElementById('tuiAbout').onclick=()=>switchTab('about');
+  render(); renderAbout();
+}
+function switchTab(w){
+  document.getElementById('tuiList').classList.toggle('on',w==='list');
+  document.getElementById('tuiAbout').classList.toggle('on',w==='about');
+  document.getElementById('listPage').style.display=w==='list'?'block':'none';
+  document.querySelector('.searchbar').style.display=w==='list'?'flex':'none';
+  document.getElementById('aboutPage').classList.toggle('show',w==='about');
+}
+function renderFilters(){
+  const g=DATA.find(x=>x.rank===curRank);
+  if(!g)return;
+  const pCnt={},rCnt={};
+  for(const p of g.list){
+    if(p.prov)pCnt[p.prov]=(pCnt[p.prov]||0)+1;
+    if(p.reg)rCnt[p.reg]=(rCnt[p.reg]||0)+1;
+  }
+  const fill=(sel,cnt,cur)=>{
+    const el=document.getElementById(sel);
+    const opts=Object.entries(cnt).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'zh'));
+    el.innerHTML=`<option value="">按${sel==='fProv'?'省份':'革命老区'}（全部 ${g.list.length}人）</option>`+
+      opts.map(([k,v])=>`<option value="${k}" ${k===cur?'selected':''}>${k}（${v}）</option>`).join('');
+    if(cur&&!opts.some(o=>o[0]===cur)){el.value='';if(sel==='fProv')curProv='';else curReg='';}
+  };
+  fill('fProv',pCnt,curProv);fill('fRegion',rCnt,curReg);
+}
+function render(){
+  renderFilters();
+  const box=document.getElementById('list');
+  const g=DATA.find(x=>x.rank===curRank);
+  if(!g){box.innerHTML='';return;}
+  let items=g.list;
+  if(curProv) items=items.filter(p=>p.prov===curProv);
+  if(curReg) items=items.filter(p=>p.reg===curReg);
+  if(kw) items=items.filter(p=>{
+    const blob=[p.n,p.prov,p.j,p.y,p.bio,p.gj].join(' ');
+    return blob.includes(kw);
+  });
+  if(!items.length){box.innerHTML='<div class="empty">未找到相关记录</div>';return;}
+  let html='',lastYear=null;
+  for(const p of items){
+    if(p.y && p.y!==lastYear && (curRank==='少将')&&!curProv&&!curReg){lastYear=p.y;html+=`<div class="yearmark">${p.y}</div>`;}
+    html+=`<div class="card" onclick="openDetail('${encodeURIComponent(p.n)}')">
+      <div class="avatar">${p.n[0]}</div>
+      <div class="info"><div class="nm">${p.n}</div>
+      <div class="meta">${[p.prov?(p.prov+'籍'):null,p.y].filter(Boolean).join(' · ')||'&nbsp;'}</div></div>
+      <span class="badge" style="background:${RANK_COLORS[curRank]}22;color:${RANK_COLORS[curRank]}">${curRank}</span>
+    </div>`;
+  }
+  box.innerHTML=html;
+}
+function openDetail(enc){
+  const name=decodeURIComponent(enc);
+  const g=DATA.find(x=>x.rank===curRank);
+  const p=g.list.find(x=>x.n===name);
+  if(!p)return;
+  document.getElementById('modal').innerHTML=`
+    <div class="mhead"><div class="row"><h2>${p.n}</h2><button class="close" onclick="closeModal()">✕</button></div>
+    <div class="tags"><span class="tag">${curRank}</span>${p.y?`<span class="tag">${p.y}</span>`:''}${p.prov?`<span class="tag">${p.prov}籍</span>`:''}${p.reg?`<span class="tag">${p.reg}</span>`:''}${p.bd?`<span class="tag">${p.bd}</span>`:''}</div></div>
+    <div class="mbody">
+      ${p.bio?`<div class="sec"><h3>生平简介</h3><p>${p.bio}</p></div>`:'<div class="sec"><p style="color:#8a8378">生平资料整理中，欢迎通过其他权威渠道（如《中国人民解放军将帅名录》）查询。</p></div>'}
+      ${p.gj?`<div class="sec"><h3>历史功绩</h3><p>${p.gj}</p></div>`:''}
+
+    </div>`;
+  document.getElementById('mask').classList.add('show');
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('mask').classList.remove('show');
+  document.getElementById('modal').classList.remove('show');
+}
+function renderAbout(){
+  document.getElementById('aboutContent').innerHTML=ABOUT;
+}
+init();
+</script>
+</body>
+</html>
